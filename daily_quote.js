@@ -148,27 +148,26 @@ async function run() {
     textStack.topAlignContent();
     textStack.setPadding(0, 0, 0, 0);
 
-    const header = textStack.addText("Daily Quote".toUpperCase());
+    const header = textStack.addText(
+      `Daily Quote・${formatDate(new Date())}`.toUpperCase()
+    );
     header.textColor = textColor;
-    header.font = Font.regularSystemFont(8);
+    header.font = Font.regularSystemFont(10);
     header.minimumScaleFactor = 1;
+
+    textStack.addSpacer(24);
 
     const wordLevel = textStack.addText(quote.content);
     wordLevel.textColor = textColor;
-    wordLevel.font = Font.semiboldSystemFont(18);
+    wordLevel.font = new Font("Georgia", 18);
     wordLevel.minimumScaleFactor = 0.3;
 
-    const locationText = listWidget.addText(quote.author);
+    textStack.addSpacer(12);
+
+    const locationText = textStack.addText(quote.author);
     locationText.textColor = textColor;
-    locationText.font = Font.regularSystemFont(12);
+    locationText.font = Font.italicSystemFont(14);
     locationText.minimumScaleFactor = 0.5;
-
-    listWidget.addSpacer(2);
-
-    const widgetText = listWidget.addText(formatDate(new Date()));
-    widgetText.textColor = textColor;
-    widgetText.font = Font.regularSystemFont(8);
-    widgetText.minimumScaleFactor = 0.5;
   } catch (error) {
     const errorWidgetText = listWidget.addText(`${error}`);
     errorWidgetText.textColor = Color.red();
