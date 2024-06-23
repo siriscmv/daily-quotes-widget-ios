@@ -152,7 +152,7 @@ async function run() {
       `Daily Quote・${formatDate(new Date())}`.toUpperCase()
     );
     header.textColor = textColor;
-    header.font = Font.regularSystemFont(10);
+    header.font = Font.regularSystemFont(12);
     header.minimumScaleFactor = 1;
 
     textStack.addSpacer(24);
