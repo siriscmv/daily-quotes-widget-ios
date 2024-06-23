@@ -3,7 +3,8 @@
 // icon-color: pink; icon-glyph: magic;
 "use strict";
 
-const RANDOM_COLOR_API = () => "https://colors.zoodinkers.com/api";
+const RANDOM_COLOR_API = () =>
+  `https://colors.zoodinkers.com/api?date=${dateYYYYMMDD()}`;
 const COLOR_SCHEME_API = (color) =>
   `https://www.thecolorapi.com/scheme?hex=${color}&mode=monochrome&count=3`;
 const QUOTE_API = () => "https://api.quotable.io/random";
@@ -71,7 +72,7 @@ function formatDate(date) {
   return `${dayOfWeek}, ${dayOfMonth}${ordinalSuffix} ${month}`;
 }
 
-function currentDateYYYYMMDD(date = new Date()) {
+function dateYYYYMMDD(date = new Date()) {
   const year = date.getFullYear();
   const month = String(date.getMonth() + 1).padStart(2, "0");
   const day = String(date.getDate()).padStart(2, "0");
@@ -86,7 +87,7 @@ async function getWidgetData() {
   const path = fm.joinPath(fm.documentsDirectory(), "daily-quotes-widget-data");
   if (!fm.fileExists(path)) fm.createDirectory(path, false);
 
-  const fileName = currentDateYYYYMMDD();
+  const fileName = dateYYYYMMDD();
 
   const todayFile = fm.joinPath(path, `/${fileName}.json`);
 
@@ -96,7 +97,7 @@ async function getWidgetData() {
   }
 
   const ONE_DAY = 24 * 60 * 60 * 1000;
-  const prevFileName = currentDateYYYYMMDD(new Date(Date.now() - ONE_DAY));
+  const prevFileName = dateYYYYMMDD(new Date(Date.now() - ONE_DAY));
   const previousFile = fm.joinPath(path, `/${prevFileName}.json`);
 
   if (fm.fileExists(previousFile)) {
